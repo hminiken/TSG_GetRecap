@@ -1,6 +1,4 @@
 console.log("This is the background")
-
-
   
 const fetchData = async (url, cookies) => {
     try {
@@ -16,20 +14,14 @@ const fetchData = async (url, cookies) => {
     } catch (error) {
         return { success: false, error: error.message };
     }
-
-
 };
-
-
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     (async () => {
     console.log("Reached Listener");
     if (request.action === "fetchData") {
         browser_cookies = []
         chrome.cookies.getAll({domain: "thestorygraph.com"}, (cookies) => {    
-            
-          url = "https://app.thestorygraph.com/books-read/bea455db-1abd-4b75-9afd-c8fcf980b307?year=2024&month=6"
-          const data = fetchData(url, cookies).then(result => {
+          const data = fetchData(request.url, cookies).then(result => {
             if (result.success) {
                 sendResponse(result.data);
 
