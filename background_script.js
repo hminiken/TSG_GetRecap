@@ -23,6 +23,7 @@ const fetchData = async (url, cookies) => {
         chrome.cookies.getAll({domain: "thestorygraph.com"}, (cookies) => {    
           const data = fetchData(request.url, cookies).then(result => {
             if (result.success) {
+              console.log("Success");
                 sendResponse(result.data);
 
             } else {
